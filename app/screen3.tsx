@@ -112,6 +112,60 @@ export default function Index() {
           style={styles.archiveBox}
           >
 
+                    <View
+                    style={styles.tabWrapper}
+                    >
+
+
+                       <View
+                            style={styles.singleTab}
+                            >
+
+                          <Text style={styles.tabText}>About</Text>
+
+                         <View
+                                style={styles.marker}
+                                ></View>
+                          </View>
+
+                          <View
+                             style={styles.singleTab}
+                             >
+
+                           <Text style={styles.tabText}>Stats</Text>
+
+                          <View
+                                 style={styles.marker}
+                                 ></View>
+                           </View>
+
+                         <View
+                            style={styles.singleTab}
+                            >
+
+                          <Text style={styles.tabText}>Inventory</Text>
+
+                         <View
+                                style={styles.marker}
+                                ></View>
+                          </View>
+
+                         <View
+                            style={styles.singleTab}
+                            >
+
+                          <Text style={styles.tabText}>Media</Text>
+
+                         <View
+                                style={styles.marker}
+                                ></View>
+                          </View>
+
+
+                    </View>
+
+
+
 
 
 
@@ -164,6 +218,49 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+
+
+    tabWrapper: {
+        width: "100%",
+//         backgroundColor: "red",
+        height: 100,
+        flexDirection: "row",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        paddingLeft: 5,
+        paddingRight: 5,
+
+        },
+    singleTab: {
+        height: "100%",
+        resizeMode:'contain',
+        marginLeft: 5,
+        marginRight: 5,
+        flex: 1,
+
+//         backgroundColor: "blue",
+
+        },
+    tabPic: {
+        width: "100%",
+
+        },
+    marker: {
+
+        height: "10%",
+        width: "100%",
+        position: "absolute",
+        bottom: 0,
+        backgroundColor: "#BBB6B7",
+        borderRadius: 10,
+        },
+    tabText: {
+        textAlign: "center",
+        color: "#484848",
+        fontSize: 18,
+        fontFamily: 'RedditSans-SemiBold',
+        marginTop: "78%"
+        },
 
     stickyFooter: {
         position: "fixed",
