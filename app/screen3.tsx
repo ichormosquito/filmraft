@@ -60,124 +60,75 @@ export default function Index() {
         <View
             style={styles.middle}
         >
-            <Text style={styles.headerText}>Find a film archive in need!</Text>
-            <Text style={styles.suggestText}>Search by archive, title, subject, or credits</Text>
-            <TextInput style={styles.searchBar} placeholder="Search" keyboardType="numeric"/>
+              <View
+                         style={styles.archiveHeadWrap}
+                         >
+                           <View
+                           style={styles.archiveHeader}
+                           >
+                           <Text style={styles.archiveTitle}>Public University Film Library</Text>
+                           <Text style={styles.archiveLocation}>United States</Text>
 
-            <View
-            style={styles.buttonRow}
-            >
-                <Pressable
-                style={styles.buttonMajor} onPress={handlePress}
-                >
-                <Text style={styles.buttonText}>Categories</Text>
-                </Pressable>
-                <View
-                style={styles.buttonMinor}
-                >
-                <Text style={styles.buttonText}>Filter</Text>
-                </View>
-                <View
-                style={styles.buttonMinor}
-                >
-                <Text style={styles.buttonText}>Sort</Text>
-                </View>
-            </View>
+                           </View>
+                           <View
+                           style={styles.vulnerabilityDesc}
+                           >
 
+                           <Text style={styles.vulnerabilityText}>VULNERABILITY SCORE</Text>
+
+                           </View>
+
+                          <View
+                          style={styles.circle}
+                          >
+                          <Text style={styles.circleScore}>10</Text>
+                          <Text style={styles.circleScoreDesc}>CRITICAL</Text>
+                          </View>
+
+
+                         </View>
+
+
+      <View
+          style={styles.videoBox}
+          >
+          <Image
+                               source={require('@/assets/images/yt-new.png')}
+                               style={styles.ytPic}
+                          />
+      </View>
+
+      <Text style={styles.goalBigText}>$20,000 <Text style={styles.smallerGoal}>raised out of $30,000</Text></Text>
+
+        <View
+        style={styles.favButtonWrap}
+        >
+
+        <View style={styles.favButton}><Text style={styles.favText}>Favorite</Text></View>
+        <View style={styles.favButton}><Text style={styles.favText}>Share</Text></View>
+
+        </View>
           <View
           style={styles.archiveBox}
           >
-                  <View
-                  style={styles.archiveHeadWrap}
-                  >
-                    <View
-                    style={styles.archiveHeader}
-                    >
-                    <Text style={styles.archiveTitle}>Public University Film Library</Text>
-                    <Text style={styles.archiveLocation}>United States</Text>
-
-                    </View>
-                    <View
-                    style={styles.vulnerabilityDesc}
-                    >
-
-                    <Text style={styles.vulnerabilityText}>VULNERABILITY SCORE</Text>
-
-                    </View>
-
-                   <View
-                   style={styles.circle}
-                   >
-                   <Text style={styles.circleScore}>10</Text>
-                   <Text style={styles.circleScoreDesc}>CRITICAL</Text>
-                   </View>
 
 
-                  </View>
 
-            <View
-            style={styles.fundWrap}
-            >
-                <View
-                style={styles.fundBar}
-                >
-                    <View
-                    style={styles.funded}
-                    >
-                    <Text style={styles.fundedText}>$20,000</Text>
-                    </View>
-                </View>
-            <View
-            style={styles.textWrap}
-            >
-            <Text style={styles.goalText}>$30,000</Text>
-            <Text style={styles.goalText}>Goal</Text>
-            </View>
-            </View>
 
-            <Text style={styles.statText}>Notable contents:</Text>
-            <Text style={styles.materialText}>Magnificent Ambersons (Welles Cut), Captain Kangaroo, Soviet Soap Commercials</Text>
-            <Text style={styles.statText}>Hours of Film: 100,000</Text>
-            <Text style={styles.statText}>Condition: <Text style={styles.redText}>40% Very Poor</Text></Text>
-            <Text style={styles.statText}>Time Spread:</Text>
+            <Text style={styles.dummyText}>Lorem ipsum dolor sit amet,
+                                           consectetur adipiscing elit.</Text>
 
-            <View
-            style={styles.timeWrap}
-            >
-                <Image
-                     source={require('@/assets/images/fr-timechart.png')}
-                     style={styles.timeImage}
-                />
-            </View>
+                                           <Text style={styles.dummyText}>Morbi ullamcorper lobortis
+                                           felis ut laoreet.</Text>
 
-            <View
-            style={styles.imageRow}
-            >
-                <View style={styles.imageWrap}><Image
-                     source={require('@/assets/images/fr-pic1.png')}
-                     style={styles.materialImage}
-                /></View>
-                <View style={styles.imageWrap}><Image
-                     source={require('@/assets/images/fr-pic2.png')}
-                     style={styles.materialImage}
-                /></View>
-                <View style={styles.imageWrap}><Image
-                     source={require('@/assets/images/fr-pic3.png')}
-                     style={styles.materialImage}
-                /></View>
-            </View>
+                                           <Text style={styles.dummyText}>Phasellus nulla orci, sollicitudin at eros quis, gravida ullamcorper dolor. </Text>
 
-            <View
-            style={styles.tagRow}
-            >
 
-                <View style={styles.tag}><Text style={styles.tagText}>Nitrate</Text></View>
-                <View style={styles.tag}><Text style={styles.tagText}>Media Art</Text></View>
-                <View style={styles.tag}><Text style={styles.tagText}>Animation</Text></View>
-                <View style={styles.tag}><Text style={styles.tagText}>70mm</Text></View>
-                <View style={styles.tagEllipses}><Text style={styles.tagTextEllipses}>...</Text></View>
 
-            </View>
+
+
+
+
 
 
 
@@ -186,65 +137,25 @@ export default function Index() {
 
         </View>
 
-            <View
-            style={styles.select}
-            >
-            <View
-            style={styles.selectWrapper}
-            >
-            <Text style={styles.selectHeader}>Pick all the categories that interest you:</Text>
-            <View
-            style={styles.selectContainer}
-            >
-                        <View
-                        style={styles.tagRowSelect}
-                        >
 
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagActivate}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
+<View style={styles.stickyFooter}>
+<View style={styles.chev}>
+            <Image
+                source={require('@/assets/images/chev-left.png')}
+                style={styles.chevPic}
+            />
+</View>
+<View style={styles.contact}>
+<Text style={styles.connectText}>Connect...</Text>
+</View>
+<View style={styles.chev}>
+            <Image
+                source={require('@/assets/images/chev-right.png')}
+                style={styles.chevPic}
+            />
+</View>
 
-
-                        </View>
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagActivate}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-
-
-
-            </View>
-              <View
-            style={styles.selectButton}
-            ><Text style={styles.selectButtonText}>Search</Text></View>
-            </View>
-            </View>
+</View>
 
     </View>
 
@@ -253,6 +164,68 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+
+    stickyFooter: {
+        position: "fixed",
+        width: "100%",
+        height: 80,
+        bottom: "0%",
+        borderTopColor: "gray",
+        borderTopWidth: "1px",
+        boxShadow: "0px -3px 10px #eee",
+        backgroundColor: "white",
+        flexDirection: "row",
+        justifyContent: "center",
+        paddingTop: 13,
+
+        },
+
+        contact: {
+
+             flex: 2,
+             borderRadius: 10,
+             backgroundColor: '#DC2103',
+             justifyContent: "center",
+             height: "82%",
+
+
+
+        },
+
+        chevPic: {
+
+                    height: "70%",
+                    width: "100%",
+                    resizeMode:'contain',
+                    position: "absolute",
+                    alignSelf: "center",
+                    marginBottom: 10,
+
+
+
+            },
+
+            connectText: {
+
+                color: "white",
+                textAlign: "center",
+                fontSize: 30,
+                fontFamily: 'RedditSans-Regular',
+
+
+
+            },
+
+
+            chev: {
+
+                 flex: 1,
+                 borderRadius: 10,
+                 justifyContent: "center",
+
+
+            },
+
     container: {
         flex: 1,
         backgroundColor: 'white',
@@ -280,25 +253,8 @@ const styles = StyleSheet.create({
         paddingLeft: "2%",
         paddingRight: "2%"
     },
-    suggestText: {
-        color: '#484848',
-        fontFamily: 'RedditSans-Regular',
-        fontSize: 17,
-        textAlign: 'center',
-        marginTop: 13,
-        fontStyle: "oblique",
-    },
-    searchBar: {
-         height: 65,
-         marginTop: 18,
-         borderWidth: 3,
-         width: "100%",
-         padding: 15,
-         fontSize: 19,
-         borderRadius: 90,
-         borderColor: '#D9D9D9',
 
-    },
+
     buttonRow: {
          height: 45,
          marginTop: 18,
@@ -337,9 +293,10 @@ const styles = StyleSheet.create({
     },
 
     archiveHeadWrap: {
-
+        marginTop: 38,
         width: "88%",
         position: "relative",
+        marginLeft: -43,
 
         },
 
@@ -376,6 +333,90 @@ const styles = StyleSheet.create({
 
         },
 
+    videoBox: {
+
+        width: "100%",
+        height: undefined,
+        aspectRatio: "16/9",
+
+        marginTop: 20,
+        borderRadius: 10,
+
+        },
+
+    ytPic: {
+
+                height: "98%",
+                width: "100%",
+                resizeMode:'contain',
+                position: "absolute",
+                alignSelf: "center",
+
+
+
+        },
+
+    goalBigText: {
+
+        color: "black",
+        fontFamily: 'RedditSans-SemiBold',
+        fontSize: 38,
+        textAlign: 'center',
+        marginTop: 10,
+
+    },
+
+    smallerGoal: {
+
+        color: "black",
+        fontFamily: 'RedditSans-SemiBold',
+        fontSize: 21,
+        textAlign: 'center',
+
+    },
+
+    dummyText: {
+
+        color: "#484848",
+        fontFamily: 'RedditSans-Regular',
+        fontSize: 25,
+        marginTop: 25,
+        marginLeft: 20,
+
+
+    },
+
+    favButtonWrap: {
+         height: 50,
+         width: "100%",
+         flexDirection: "row",
+         marginTop: 5,
+         marginBottom: 12,
+         display: "flex",
+         justifyContent: "center",
+         alignItems: "center",
+    },
+
+    favButton: {
+        backgroundColor: "#797979",
+        height: "100%",
+        flex: 1,
+        marginLeft: 4,
+        marginRight: 4,
+        justifyContent: "center",
+        borderRadius: 7,
+        alignItems: "center",
+
+    },
+
+    favText: {
+
+        color: "white",
+        fontFamily: "RedditSans-Regular",
+        fontSize: 25,
+
+        },
+
     archiveBox: {
 
         backgroundColor: "#EBEBEB",
@@ -383,9 +424,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: "100%",
         height: undefined,
-        marginTop: 32,
+        marginTop: 5,
+
         borderTopLeftRadius: 10,
-        borderTopRightRadius: 40,
+        borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
     },
@@ -437,58 +479,9 @@ const styles = StyleSheet.create({
     },
 
 
-    fundWrap: {
-        width: "100%",
-        height: undefined,
-        marginTop: 20,
-        marginLeft: 12,
-        flexDirection: "row",
-        marginBottom: 5,
-        },
-    fundBar: {
-        backgroundColor: "#797979",
-        width: "80%",
-        borderRadius: 7,
-        height: 25,
-        },
-    funded: {
-        backgroundColor: "#DC2103",
-        borderTopLeftRadius: 7,
-        borderBottomLeftRadius: 7,
-        width: "70%",
-        height: "100%",
-        justifyContent: "center",
-        },
-    fundedText: {
-        color: "white",
-        marginLeft: 8,
-        fontSize: 18,
-        fontFamily: "RedditSans-Regular",
-        },
-    goalText: {
-        fontFamily: "RedditSans-SemiBold",
-        color: '#484848',
-        fontSize: 10,
-        marginLeft: 5,
-        },
 
-    statText: {
-        fontFamily: "RedditSans-Bold",
-        color: '#484848',
-        fontSize: 20,
-        marginLeft: 38,
-        marginTop: 6,
-        },
-    redText: {
-        color: '#DC2103',
-        },
-    materialText: {
-        fontFamily: "RedditSans-Regular",
-        color: '#484848',
-        fontSize: 13,
-        marginLeft: 52,
-        marginTop: 8,
-        },
+
+
 
     text: {
         color: 'black',
@@ -555,7 +548,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         resizeMode:'contain',
         position: "absolute",
-        alignSelf: "center"
+        alignSelf: "center",
 
     },
 
