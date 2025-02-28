@@ -138,10 +138,39 @@ export default function Index() {
             <View
             style={styles.timeWrap}
             >
-            <Image
-                 source={require('@/assets/images/fr-timechart.png')}
-                 style={styles.timeImage}
-            />
+                <Image
+                     source={require('@/assets/images/fr-timechart.png')}
+                     style={styles.timeImage}
+                />
+            </View>
+
+            <View
+            style={styles.imageRow}
+            >
+                <View style={styles.imageWrap}><Image
+                     source={require('@/assets/images/fr-pic1.png')}
+                     style={styles.materialImage}
+                /></View>
+                <View style={styles.imageWrap}><Image
+                     source={require('@/assets/images/fr-pic2.png')}
+                     style={styles.materialImage}
+                /></View>
+                <View style={styles.imageWrap}><Image
+                     source={require('@/assets/images/fr-pic3.png')}
+                     style={styles.materialImage}
+                /></View>
+            </View>
+
+            <View
+            style={styles.tagRow}
+            >
+
+                <View style={styles.tag}><Text style={styles.tagText}>Nitrate</Text></View>
+                <View style={styles.tag}><Text style={styles.tagText}>Media Art</Text></View>
+                <View style={styles.tag}><Text style={styles.tagText}>Animation</Text></View>
+                <View style={styles.tag}><Text style={styles.tagText}>70mm</Text></View>
+                <View style={styles.tagEllipses}><Text style={styles.tagTextEllipses}>...</Text></View>
+
             </View>
 
 
@@ -347,6 +376,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginLeft: 12,
         flexDirection: "row",
+        marginBottom: 5,
         },
     fundBar: {
         backgroundColor: "#797979",
@@ -380,7 +410,7 @@ const styles = StyleSheet.create({
         color: '#484848',
         fontSize: 20,
         marginLeft: 38,
-        marginTop: 10,
+        marginTop: 6,
         },
     redText: {
         color: '#DC2103',
@@ -432,11 +462,83 @@ const styles = StyleSheet.create({
     timeWrap: {
 
         width: "100%",
-        height: 50,
-        marginTop: 15,
-//         backgroundColor: "blue",
+        height: 45,
+        marginTop: 12,
+        },
+
+    imageRow: {
+         height: 97,
+         width: "100%",
+         flexDirection: "row",
+         marginTop: 5,
+         display: "flex",
+         justifyContent: "center",
+         alignItems: "center",
+    },
+    imageWrap: {
+
+        aspectRatio: 1,
+        height: "100%",
+        marginLeft: 11,
+        marginRight: 11,
 
         },
+    materialImage: {
+        height: "100%",
+        aspectRatio: 1,
+        resizeMode:'contain',
+        position: "absolute",
+        alignSelf: "center"
+
+    },
+
+    tagRow: {
+         height: 30,
+         width: "100%",
+         flexDirection: "row",
+         marginTop: 17,
+         marginBottom: 12,
+         display: "flex",
+         justifyContent: "center",
+         alignItems: "center",
+    },
+    tag: {
+        backgroundColor: "#797979",
+        height: "100%",
+        marginLeft: 4,
+        marginRight: 4,
+        justifyContent: "center",
+        borderRadius: 7,
+
+    },
+    tagEllipses: {
+        height: "100%",
+        marginLeft: 4,
+        marginRight: 4,
+        justifyContent: "center",
+        borderRadius: 7,
+
+    },
+
+    tagText: {
+
+        color: "white",
+        fontFamily: 'RedditSans-Light',
+        fontSize: 16,
+        textAlign: 'center',
+        marginLeft: 7,
+        marginRight: 7,
+
+    },
+    tagTextEllipses: {
+
+        color: "#484848",
+        fontFamily: 'RedditSans-Light',
+        fontSize: 27,
+        marginLeft: 3,
+
+
+    },
 
 
 
