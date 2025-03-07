@@ -132,8 +132,8 @@ const router = useRouter();
                             <View
                             style={styles.archiveHeader}
                             >
-                            <Text style={styles.archiveTitle}>Public University Film Library</Text>
-                            <Text style={styles.archiveLocation}>United States</Text>
+                            <Text style={styles.archiveTitle}>Filmmaker's Private Archive</Text>
+                            <Text style={styles.archiveLocation}>Canada</Text>
 
                             </View>
                             <View
@@ -145,10 +145,10 @@ const router = useRouter();
                             </View>
 
                            <View
-                           style={styles.circle}
+                           style={styles.circleSafe}
                            >
-                           <Text style={styles.circleScore}>10</Text>
-                           <Text style={styles.circleScoreDesc}>CRITICAL</Text>
+                           <Text style={styles.circleScore}>2</Text>
+                           <Text style={styles.circleScoreDesc}>SAFE</Text>
                            </View>
 
 
@@ -162,14 +162,14 @@ const router = useRouter();
 
 <View style={styles.videoBox}>
   <WebView
-    source={{ uri: "https://www.youtube.com/embed/smXWZDupnkw" }}
+    source={{ uri: "https://www.youtube.com/embed/K-UjdyK7Bu8" }}
     style={styles.webview}
     javaScriptEnabled={true}
     domStorageEnabled={true}
   />
 </View>
 
-      <Text style={styles.goalBigText}>$20,000 <Text style={styles.smallerGoal}>raised out of $30,000</Text></Text>
+      <Text style={styles.goalBigText}>$9,900 <Text style={styles.smallerGoal}>raised out of $10,000</Text></Text>
 
 
 <View style={styles.favButtonWrap}>
@@ -237,7 +237,7 @@ const router = useRouter();
     </ScrollView >
 
     <View style={styles.stickyFooter}>
-    <Pressable style={styles.chev} onPress={() => router.push("archive2")}>
+    <Pressable style={styles.chev} onPress={() => router.push("archive")}>
                 <Image
                     source={require('@/assets/images/chev-left.png')}
                     style={styles.chevPic}
@@ -246,7 +246,7 @@ const router = useRouter();
     <View style={styles.contact}>
     <Text style={styles.connectText}>Connect...</Text>
     </View>
-    <Pressable style={styles.chev} onPress={() => router.push("archive2")}>
+    <Pressable style={styles.chev} onPress={() => router.push("archive")}>
                 <Image
                     source={require('@/assets/images/chev-right.png')}
                     style={styles.chevPic}
@@ -256,6 +256,8 @@ const router = useRouter();
     </View>
 
     </View>
+
+
 
 //         DISPLAY END ***************
   );
@@ -500,6 +502,22 @@ const styles = StyleSheet.create({
         justifyContent: "center",
 
         },
+        circleSafe: {
+
+            borderRadius: 50,
+            position: "absolute",
+            width: 100,
+            height: 100,
+            backgroundColor: "#2b9e37",
+            borderWidth: 2,
+            borderColor: "#1d7026",
+            right: -10,
+            top: -15,
+            justifyContent: "center",
+
+            },
+
+
 
     circleScore: {
 

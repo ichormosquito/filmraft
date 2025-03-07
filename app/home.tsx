@@ -74,7 +74,7 @@ const [elementVisible, setElementVisible] = useState(false);
     >
 
 
-        <View
+        <Pressable onPress={() => router.push("")}
             style={styles.top}
         >
             <Image
@@ -89,7 +89,7 @@ const [elementVisible, setElementVisible] = useState(false);
                  source={require('@/assets/images/fr-burger.png')}
                  style={styles.burgerImage}
             />
-        </View>
+        </Pressable>
 
 
         <View
@@ -160,7 +160,7 @@ const [elementVisible, setElementVisible] = useState(false);
                 style={styles.fundBar}
                 >
                     <View
-                    style={styles.funded}
+                    style={styles.fundedGood}
                     >
                     <Text style={styles.fundedText}>$20,000</Text>
                     </View>
@@ -221,6 +221,112 @@ const [elementVisible, setElementVisible] = useState(false);
 
 
           </Pressable>
+
+           {/* BEGIN SECOND ARCHIVE */}
+                    <Pressable
+                    style={styles.archiveBox}
+                     onPress={() => router.push("archive2")}
+                    >
+
+
+                            <View
+                            style={styles.archiveHeadWrap}
+                            >
+                              <View
+                              style={styles.archiveHeader}
+                              >
+                              <Text style={styles.archiveTitle}>Filmmaker's Private Archive</Text>
+                              <Text style={styles.archiveLocation}>Canada</Text>
+
+                              </View>
+                              <View
+                              style={styles.vulnerabilityDesc}
+                              >
+
+                              <Text style={styles.vulnerabilityText}>VULNERABILITY SCORE</Text>
+
+                              </View>
+
+                             <View
+                             style={styles.circleSafe}
+                             >
+                             <Text style={styles.circleScore}>2</Text>
+                             <Text style={styles.circleScoreDesc}>SAFE</Text>
+                             </View>
+
+
+                            </View>
+
+                      <View
+                      style={styles.fundWrap}
+                      >
+                          <View
+                          style={styles.fundBar}
+                          >
+                              <View
+                              style={styles.funded}
+                              >
+                              <Text style={styles.fundedText}>$9,900</Text>
+                              </View>
+                          </View>
+                      <View
+                      style={styles.textWrap}
+                      >
+                      <Text style={styles.goalText}>$10,000</Text>
+                      <Text style={styles.goalText}>Goal</Text>
+                      </View>
+                      </View>
+
+                      <Text style={styles.statText}>Notable contents:</Text>
+                      <Text style={styles.materialText}>Brown Bunny, Buffalo '66, Various Music Videos</Text>
+                      <Text style={styles.statText}>Hours of Film: 5,000</Text>
+                      <Text style={styles.statText}>Condition: 90% Good</Text>
+                      <Text style={styles.statText}>Time Spread:</Text>
+
+                      <View
+                      style={styles.timeWrap}
+                      >
+                          <Image
+                               source={require('@/assets/images/fr-timechart.png')}
+                               style={styles.timeImage}
+                          />
+                      </View>
+
+                      <View
+                      style={styles.imageRow}
+                      >
+                          <View style={styles.imageWrap}><Image
+                               source={require('@/assets/images/fr-pic44.png')}
+                               style={styles.materialImage}
+                          /></View>
+                          <View style={styles.imageWrap}><Image
+                               source={require('@/assets/images/fr-pic55.png')}
+                               style={styles.materialImage}
+                          /></View>
+                          <View style={styles.imageWrap}><Image
+                               source={require('@/assets/images/fr-pic66.png')}
+                               style={styles.materialImage}
+                          /></View>
+                      </View>
+
+                      <View
+                      style={styles.tagRow}
+                      >
+
+                          <View style={styles.tag}><Text style={styles.tagText}>Music</Text></View>
+                          <View style={styles.tag}><Text style={styles.tagText}>Silent Film</Text></View>
+                          <View style={styles.tag}><Text style={styles.tagText}>Avant Garde</Text></View>
+                          <View style={styles.tag}><Text style={styles.tagText}>16mm</Text></View>
+                          <View style={styles.tagEllipses}><Text style={styles.tagTextEllipses}>...</Text></View>
+
+                      </View>
+
+
+
+
+                    </Pressable>
+
+                    {/* END SECOND ARCHIVE */}
 
         </View>
 
@@ -381,6 +487,21 @@ const styles = StyleSheet.create({
 
         },
 
+      circleSafe: {
+
+            borderRadius: 50,
+            position: "absolute",
+            width: 100,
+            height: 100,
+            backgroundColor: "#2b9e37",
+            borderWidth: 2,
+            borderColor: "#1d7026",
+            right: -55,
+            top: -15,
+            justifyContent: "center",
+
+            },
+
     circleScore: {
 
         color: 'white',
@@ -482,10 +603,19 @@ const styles = StyleSheet.create({
         backgroundColor: "#DC2103",
         borderTopLeftRadius: 7,
         borderBottomLeftRadius: 7,
-        width: "70%",
+        width: "90%",
         height: "100%",
         justifyContent: "center",
         },
+
+        fundedGood: {
+            backgroundColor: "#DC2103",
+            borderTopLeftRadius: 7,
+            borderBottomLeftRadius: 7,
+            width: "70%",
+            height: "100%",
+            justifyContent: "center",
+            },
     fundedText: {
         color: "white",
         marginLeft: 8,
