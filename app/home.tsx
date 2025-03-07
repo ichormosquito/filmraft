@@ -1,7 +1,8 @@
-import { Text, View, StyleSheet, Image, TextInput, Button, Pressable } from "react-native";
+import { Text, View, StyleSheet, Image, TextInput, Button, Pressable, ScrollView, SafeAreaView  } from "react-native";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import {useRouter} from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -12,27 +13,61 @@ export default function Index() {
         "RedditSans-Bold": require("../assets/fonts/RedditSans-Bold.ttf"),
         "RedditSans-Medium": require("../assets/fonts/RedditSans-Medium.ttf"),
         "RedditSans-Light": require("../assets/fonts/RedditSans-Light.ttf"),
+        "RedditSans-Italic": require("../assets/fonts/RedditSans-Italic.ttf"),
+        "RedditSans-BoldItalic": require("../assets/fonts/RedditSans-BoldItalic.ttf"),
       });
 
 
 
+
+
+
+// const [tagActive, setTagActive] = useState(false);
+const router = useRouter();
+const [elementVisible, setElementVisible] = useState(false);
+
+    const tags = [
+      "Media Art", "70mm", "Home Movies",
+      "Old Hollywood", "Weddings", "Politics",
+      "Newsreels", "Television"
+    ];
+
+    const [activeTags, setActiveTags] = useState({});
+
+      const toggleTag = (tag) => {
+        setActiveTags((prevTags) => ({
+          ...prevTags,
+          [tag]: !prevTags[tag] // Toggle state
+        }));
+      };
+
+
   const onLayoutRootView = useCallback(async () => {
+
+
+
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-      }
+      if (!fontsLoaded) {
+        return null;
+          }
       const handlePress = () => {
+
         console.log('Button pressed!');
         }
+
+
+
   return (
+
+
 
 //          DISPLAY BEGIN ***************
 
-
+<ScrollView >
 
     <View
         style={styles.container}
@@ -68,7 +103,7 @@ export default function Index() {
             style={styles.buttonRow}
             >
                 <Pressable
-                style={styles.buttonMajor} onPress={handlePress}
+                style={styles.buttonMajor} onPress={() => setElementVisible(!elementVisible)}
                 >
                 <Text style={styles.buttonText}>Categories</Text>
                 </Pressable>
@@ -84,9 +119,12 @@ export default function Index() {
                 </View>
             </View>
 
-          <View
+          <Pressable
           style={styles.archiveBox}
+           onPress={() => router.push("archive")}
           >
+
+
                   <View
                   style={styles.archiveHeadWrap}
                   >
@@ -182,77 +220,60 @@ export default function Index() {
 
 
 
-          </View>
+          </Pressable>
 
         </View>
 
-            <View
-            style={styles.select}
-            >
-            <View
-            style={styles.selectWrapper}
-            >
-            <Text style={styles.selectHeader}>Pick all the categories that interest you:</Text>
-            <View
-            style={styles.selectContainer}
-            >
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagActivate}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagActivate}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-                        <View
-                        style={styles.tagRowSelect}
-                        >
-
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Media Art</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>70mm</Text></View>
-                            <View style={styles.tagSelect}><Text style={styles.tagTextSelect}>Home Movies</Text></View>
-
-
-                        </View>
-
-
-
+        {/* TAG SELECTION OVERLAY */}
+        {elementVisible && (
+          <Pressable style={styles.overlay} onPress={() => setElementVisible(false)}>
+            <View style={styles.select}>
+              <Pressable onPress={() => {}} style={styles.selectWrapper}>
+                <Text style={styles.selectHeader}>Pick all the categories that interest you:</Text>
+                <View style={styles.selectContainer}>
+                  {tags.map((tag, index) => (
+                    <Pressable
+                      key={index}
+                      style={[styles.tagSelect, activeTags[tag] && styles.tagActivated]}
+                      onPress={() => toggleTag(tag)}
+                    >
+                      <Text style={styles.tagTextSelect}>{tag}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+                <View style={styles.selectButton}>
+                  <Text style={styles.selectButtonText}>Search</Text>
+                </View>
+              </Pressable>
             </View>
-              <View
-            style={styles.selectButton}
-            ><Text style={styles.selectButtonText}>Search</Text></View>
-            </View>
-            </View>
+          </Pressable>
+        )}
+
+
+
+
+
 
     </View>
+    </ScrollView>
 
 //         DISPLAY END ***************
   );
 }
 
 const styles = StyleSheet.create({
+
+    overlay: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0,0,0,0)", // Semi-transparent black
+      justifyContent: "center",
+      alignItems: "center",
+    },
+
     container: {
         flex: 1,
         backgroundColor: 'white',
@@ -260,20 +281,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     top: {
-        flex: 1,
+        
         width: "100%",
+        height: 90,
+
         backgroundColor: '#195072',
         justifyContent: "center",
     },
     middle: {
-        flex: 9,
+        width: "98%",
         alignItems: 'center',
         paddingLeft: "5%",
         paddingRight: "5%",
     },
     headerText: {
         color: '#484848',
-        fontFamily: 'RedditSans-SemiBold',
+        fontFamily: 'RedditSans-Bold',
         fontSize: 40,
         textAlign: 'center',
         marginTop: 20,
@@ -282,11 +305,11 @@ const styles = StyleSheet.create({
     },
     suggestText: {
         color: '#484848',
-        fontFamily: 'RedditSans-Regular',
+        fontFamily: 'RedditSans-Italic',
         fontSize: 17,
         textAlign: 'center',
         marginTop: 13,
-        fontStyle: "oblique",
+
     },
     searchBar: {
          height: 65,
@@ -300,7 +323,7 @@ const styles = StyleSheet.create({
 
     },
     buttonRow: {
-         height: 45,
+         height: 52,
          marginTop: 18,
          width: "100%",
          flexDirection: "row",
@@ -331,7 +354,7 @@ const styles = StyleSheet.create({
 
         color: "white",
         fontFamily: 'RedditSans-Light',
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
 
     },
@@ -345,7 +368,7 @@ const styles = StyleSheet.create({
 
     circle: {
 
-        borderRadius: "50%",
+        borderRadius: 50,
         position: "absolute",
         width: 100,
         height: 100,
@@ -364,7 +387,8 @@ const styles = StyleSheet.create({
         fontFamily: "RedditSans-Bold",
         fontSize: 50,
         textAlign: "center",
-        lineHeight: 50,
+        lineHeight: 58,
+        height: 48,
 
         },
     circleScoreDesc: {
@@ -434,6 +458,9 @@ const styles = StyleSheet.create({
         color: '#676767',
         fontFamily: "RedditSans-SemiBold",
         textAlign: "center",
+        height: 22,
+
+
     },
 
 
@@ -464,6 +491,7 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         fontSize: 18,
         fontFamily: "RedditSans-Regular",
+        height: 27,
         },
     goalText: {
         fontFamily: "RedditSans-SemiBold",
@@ -485,7 +513,7 @@ const styles = StyleSheet.create({
     materialText: {
         fontFamily: "RedditSans-Regular",
         color: '#484848',
-        fontSize: 13,
+        fontSize: 14,
         marginLeft: 52,
         marginTop: 8,
         },
@@ -494,7 +522,7 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     mainLogo: {
-        width: '52%',
+        width: "50%",
         height: undefined,
         aspectRatio: 1,
         resizeMode:'contain',
@@ -508,7 +536,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         resizeMode:'contain',
         position: "absolute",
-        left: "20px",
+        left: 20,
     },
     burgerImage: {
         width: '7%',
@@ -516,7 +544,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         resizeMode:'contain',
         position: "absolute",
-        right: "20px",
+        right: 20,
         },
     timeImage: {
         height: 39,
@@ -649,70 +677,61 @@ const styles = StyleSheet.create({
 
     },
 
-    select: {
+  select: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    width: "100%",
+    padding: 20,
+    height: "100%",
 
-        backgroundColor: 'rgba(00,00, 00, 0.75)',
-        zIndex: 50,
-        position: "absolute",
-        height: "100%",
-        width: "100%",
-        alignItems: "center",
-      
-    },
+    alignItems: "center",
+  },
+  selectWrapper: {
+    width: "100%",
+    alignItems: "center"
+  },
+  selectHeader: {
+    color: 'white',
+    fontSize: 40,
+    marginBottom: 10,
+    fontFamily: "RedditSans-Bold",
+  },
+  selectContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "white",
+    width: "100%",
+    padding: 20,
+  },
+  tagSelect: {
+    backgroundColor: "#797979",
+    padding: 8,
+    borderRadius: 5,
+    margin: 5,
+  },
+  tagActivated: {
+    backgroundColor: "#971717",
+  },
+  tagTextSelect: {
+    color: "white",
+    fontSize: 16,
+  },
+  selectButton: {
+    marginTop: 15,
+    backgroundColor: "#A3A3A3",
+    padding: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    width: 200,
+    justifyContent: "center"
+  },
+  selectButtonText: {
+    color: "white",
 
-    selectWrapper: {
-
-        position: "absolute",
-        height: "73%",
-        width: "80%",
-        alignItems: "center",
-
-        marginTop: 170,
-    },
-
-
-
-    selectHeader: {
-            color: 'white',
-            fontFamily: 'RedditSans-SemiBold',
-            fontSize: 46,
-            paddingLeft: 3,
-            paddingRight: 3,
-            textAlign: 'center',
-
-    },
-
-    selectContainer: {
-
-        backgroundColor: "white",
-        borderRadius: 10,
-        width: "100%",
-        height: "55%",
-        marginTop: 25,
-
-
-    },
-
-    selectButton: {
-
-        backgroundColor: "#A3A3A3",
-        borderRadius: 10,
-        width: "100%",
-        height: 60,
-        position: "absolute",
-        bottom: 0,
-        justifyContent: "center",
-        alignItems: "center",
-
-    },
-
-    selectButtonText: {
-
-        color: "white",
-        fontSize: 35,
-        textAlign: "center",
-
-    },
+    fontFamily: "RedditSans-Bold",
+    fontSize: 25,
+  },
 
 
 

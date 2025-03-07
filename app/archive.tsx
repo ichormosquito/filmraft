@@ -1,7 +1,9 @@
-import { Text, View, StyleSheet, Image, TextInput, Button, Pressable } from "react-native";
+import { Text, View, StyleSheet, Image, TextInput, Button, Pressable, ScrollView, SafeAreaView } from "react-native";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import { WebView } from 'react-native-webview';
+import {useRouter} from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -14,8 +16,59 @@ export default function Index() {
         "RedditSans-Light": require("../assets/fonts/RedditSans-Light.ttf"),
       });
 
+  const [selectedTab, setSelectedTab] = useState("About");
+
+  const handleTabPress = (tabName) => {
+    setSelectedTab(tabName);
+  };
+
+  const tabContent = {
+    About: "This archive preserves a rich collection of historical films...",
+    Stats: "100,000 hours of film preserved, with 40% in very poor condition.",
+    Inventory: (
+                   <View>
+                     <Text style={styles.dummyText}>The following is a partial selection of this archive's inventory:</Text>
+                     <View style={styles.tableContainer}>
+                       <View style={styles.tableHeader}>
+                         <Text style={styles.tableHeaderText}>Item</Text>
+                         <Text style={styles.tableHeaderText}>Year</Text>
+                          <Text style={styles.tableHeaderText}>Details</Text>
+                       </View>
+                       {/* Empty rows */}
+                       {[...Array(5)].map((_, index) => (
+                         <View key={index} style={styles.tableRow}>
+                           <Text style={styles.tableCell}></Text>
+                           <Text style={styles.tableCell}></Text>
+                         </View>
+                       ))}
+                     </View>
+                   </View>
+                 ),
+    Media: "View images and clips from our collections.",
+  };
 
 
+
+  const handleSharePress = () => {
+    setShareActive(true);
+
+    setTimeout(() => {
+      setShareActive(false);
+    }, 50); // Change back after 300ms
+  };
+
+const [favoriteActive, setFavoriteActive] = useState(false);
+const [shareActive, setShareActive] = useState(false);
+
+const toggleFavorite = () => {
+  setFavoriteActive(!favoriteActive);
+};
+
+const toggleShare = () => {
+  setShareActive(!shareActive);
+};
+
+const router = useRouter();
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -32,7 +85,9 @@ export default function Index() {
 
 //          DISPLAY BEGIN ***************
 
+<View>
 
+<ScrollView >
 
     <View
         style={styles.container}
@@ -46,10 +101,14 @@ export default function Index() {
                 source={require('@/assets/images/fr-search.png')}
                 style={styles.searchImage}
             />
+            <Pressable onPress={() => router.push("home")}
+                style={styles.logoWrap}
+            >
             <Image
-                source={require('@/assets/images/filmraft-logo1.png')}
-                style={styles.mainLogo}
+            source={require('@/assets/images/filmraft-logo1.png')}
+                            style={styles.mainLogo}
             />
+             </Pressable>
             <Image
                  source={require('@/assets/images/fr-burger.png')}
                  style={styles.burgerImage}
@@ -60,122 +119,101 @@ export default function Index() {
         <View
             style={styles.middle}
         >
-              <View
-                         style={styles.archiveHeadWrap}
-                         >
-                           <View
-                           style={styles.archiveHeader}
-                           >
-                           <Text style={styles.archiveTitle}>Public University Film Library</Text>
-                           <Text style={styles.archiveLocation}>United States</Text>
 
-                           </View>
-                           <View
-                           style={styles.vulnerabilityDesc}
-                           >
+         <View
+                  style={styles.archiveBoxArch}
 
-                           <Text style={styles.vulnerabilityText}>VULNERABILITY SCORE</Text>
+                  >
 
-                           </View>
 
                           <View
-                          style={styles.circle}
+                          style={styles.archiveHeadWrap}
                           >
-                          <Text style={styles.circleScore}>10</Text>
-                          <Text style={styles.circleScoreDesc}>CRITICAL</Text>
+                            <View
+                            style={styles.archiveHeader}
+                            >
+                            <Text style={styles.archiveTitle}>Public University Film Library</Text>
+                            <Text style={styles.archiveLocation}>United States</Text>
+
+                            </View>
+                            <View
+                            style={styles.vulnerabilityDesc}
+                            >
+
+                            <Text style={styles.vulnerabilityText}>VULNERABILITY SCORE</Text>
+
+                            </View>
+
+                           <View
+                           style={styles.circle}
+                           >
+                           <Text style={styles.circleScore}>10</Text>
+                           <Text style={styles.circleScoreDesc}>CRITICAL</Text>
+                           </View>
+
+
                           </View>
 
 
-                         </View>
+                  </View>
 
 
-      <View
-          style={styles.videoBox}
-          >
-          <Image
-                               source={require('@/assets/images/yt-new.png')}
-                               style={styles.ytPic}
-                          />
-      </View>
+
+
+<View style={styles.videoBox}>
+  <WebView
+    source={{ uri: "https://www.youtube.com/embed/smXWZDupnkw" }}
+    style={styles.webview}
+    javaScriptEnabled={true}
+    domStorageEnabled={true}
+  />
+</View>
 
       <Text style={styles.goalBigText}>$20,000 <Text style={styles.smallerGoal}>raised out of $30,000</Text></Text>
 
-        <View
-        style={styles.favButtonWrap}
-        >
 
-        <View style={styles.favButton}><Text style={styles.favText}>Favorite</Text></View>
-        <View style={styles.favButton}><Text style={styles.favText}>Share</Text></View>
+<View style={styles.favButtonWrap}>
+  <Pressable
+    style={[styles.favButton, { backgroundColor: favoriteActive ? "#DC2103" : "#797979" }]}
+    onPress={toggleFavorite}
+  >
+    <Text style={styles.favText}>{favoriteActive ? "Favorited" : "Favorite"}</Text>
+  </Pressable>
 
-        </View>
+  <Pressable
+    style={[styles.favButton, { backgroundColor: shareActive ? "#195072" : "#797979" }]}
+    onPress={handleSharePress}
+  >
+    <Text style={styles.favText}>Share</Text>
+  </Pressable>
+</View>
           <View
           style={styles.archiveBox}
           >
 
-                    <View
-                    style={styles.tabWrapper}
-                    >
 
-
-                       <View
-                            style={styles.singleTab}
-                            >
-
-                          <Text style={styles.tabText}>About</Text>
-
-                         <View
-                                style={styles.marker}
-                                ></View>
-                          </View>
-
-                          <View
-                             style={styles.singleTab}
-                             >
-
-                           <Text style={styles.tabText}>Stats</Text>
-
-                          <View
-                                 style={styles.marker}
-                                 ></View>
-                           </View>
-
-                         <View
-                            style={styles.singleTab}
-                            >
-
-                          <Text style={styles.tabText}>Inventory</Text>
-
-                         <View
-                                style={styles.marker}
-                                ></View>
-                          </View>
-
-                         <View
-                            style={styles.singleTab}
-                            >
-
-                          <Text style={styles.tabText}>Media</Text>
-
-                         <View
-                                style={styles.marker}
-                                ></View>
-                          </View>
-
-
-                    </View>
+  <View style={styles.tabWrapper}>
+    {[
+      { name: "About", image: require("@/assets/images/fr-about.png") },
+      { name: "Stats", image: require("@/assets/images/fr-stat.png") },
+      { name: "Inventory", image: require("@/assets/images/fr-film.png") },
+      { name: "Media", image: require("@/assets/images/fr-media.png") },
+    ].map((tab, index) => (
+      <Pressable key={index} style={styles.singleTab} onPress={() => handleTabPress(tab.name)}>
+        <View style={styles.imgGate}>
+          <Image source={tab.image} style={styles.tabPic} />
+        </View>
+        <Text style={[styles.tabText, selectedTab === tab.name && styles.activeTabText]}>{tab.name}</Text>
+        <View style={[styles.marker, selectedTab === tab.name && styles.activeMarker]} />
+      </Pressable>
+    ))}
+  </View>
 
 
 
 
 
-
-            <Text style={styles.dummyText}>Lorem ipsum dolor sit amet,
-                                           consectetur adipiscing elit.</Text>
-
-                                           <Text style={styles.dummyText}>Morbi ullamcorper lobortis
-                                           felis ut laoreet.</Text>
-
-                                           <Text style={styles.dummyText}>Phasellus nulla orci, sollicitudin at eros quis, gravida ullamcorper dolor. </Text>
+        <Text style={styles.dummyText}>{tabContent[selectedTab]}</Text>
 
 
 
@@ -192,24 +230,30 @@ export default function Index() {
         </View>
 
 
-<View style={styles.stickyFooter}>
-<View style={styles.chev}>
-            <Image
-                source={require('@/assets/images/chev-left.png')}
-                style={styles.chevPic}
-            />
-</View>
-<View style={styles.contact}>
-<Text style={styles.connectText}>Connect...</Text>
-</View>
-<View style={styles.chev}>
-            <Image
-                source={require('@/assets/images/chev-right.png')}
-                style={styles.chevPic}
-            />
-</View>
 
-</View>
+
+    </View>
+
+    </ScrollView >
+
+    <View style={styles.stickyFooter}>
+    <View style={styles.chev}>
+                <Image
+                    source={require('@/assets/images/chev-left.png')}
+                    style={styles.chevPic}
+                />
+    </View>
+    <View style={styles.contact}>
+    <Text style={styles.connectText}>Connect...</Text>
+    </View>
+    <View style={styles.chev}>
+                <Image
+                    source={require('@/assets/images/chev-right.png')}
+                    style={styles.chevPic}
+                />
+    </View>
+
+    </View>
 
     </View>
 
@@ -219,32 +263,81 @@ export default function Index() {
 
 const styles = StyleSheet.create({
 
+      tableContainer: {
+        marginTop: 10,
+        borderWidth: 1,
+        borderColor: "#BDBDBD",
+        borderRadius: 5,
+      },
+      tableHeader: {
+        flexDirection: "row",
+        backgroundColor: "#195072",
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+      },
+      tableHeaderText: {
+        flex: 1,
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center",
+      },
+      tableRow: {
+        flexDirection: "row",
+        borderBottomWidth: 1,
+        borderBottomColor: "#BDBDBD",
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+      },
+      tableCell: {
+        flex: 1,
+        textAlign: "center",
+      },
+
+    activeTabText: {
+      color: "#231F20"
+
+    },
+
+    activeMarker: {
+      backgroundColor: "#231F20"
+    },
+
 
     tabWrapper: {
         width: "100%",
-//         backgroundColor: "red",
         height: 100,
         flexDirection: "row",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         paddingLeft: 5,
         paddingRight: 5,
-
-        },
+    },
     singleTab: {
-        height: "100%",
-        resizeMode:'contain',
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
         marginLeft: 5,
         marginRight: 5,
-        flex: 1,
-
-//         backgroundColor: "blue",
-
-        },
+    },
+    imgGate: {
+        width: 40, // Set fixed width or adjust dynamically
+        height: 40, // Ensure it has a height
+        justifyContent: "center",
+        alignItems: "center",
+    },
     tabPic: {
         width: "100%",
+        height: "100%",
+        resizeMode: "contain", // Ensures image fits within container
+    },
+    tabText: {
+        textAlign: "center",
+        color: "#484848",
+        fontSize: 16,
+        fontFamily: 'RedditSans-SemiBold',
+        marginTop: 5, // Adds space between image and text
+    },
 
-        },
     marker: {
 
         height: "10%",
@@ -254,22 +347,16 @@ const styles = StyleSheet.create({
         backgroundColor: "#BBB6B7",
         borderRadius: 10,
         },
-    tabText: {
-        textAlign: "center",
-        color: "#484848",
-        fontSize: 18,
-        fontFamily: 'RedditSans-SemiBold',
-        marginTop: "78%"
-        },
+
 
     stickyFooter: {
-        position: "fixed",
+        position: "absolute",
         width: "100%",
         height: 80,
-        bottom: "0%",
-        borderTopColor: "gray",
-        borderTopWidth: "1px",
-        boxShadow: "0px -3px 10px #eee",
+        bottom: 0,
+
+        borderTopWidth: 0,
+        boxShadow: "0px -3px 10px #aaaaaa",
         backgroundColor: "white",
         flexDirection: "row",
         justifyContent: "center",
@@ -319,6 +406,7 @@ const styles = StyleSheet.create({
                  flex: 1,
                  borderRadius: 10,
                  justifyContent: "center",
+                 marginBottom: 10,
 
 
             },
@@ -330,14 +418,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     top: {
-        flex: 1,
+
         width: "100%",
+        height: 90,
+
         backgroundColor: '#195072',
         justifyContent: "center",
     },
     middle: {
-        flex: 9,
-        alignItems: 'center',
+        width: "100%",
+
         paddingLeft: "5%",
         paddingRight: "5%",
     },
@@ -389,24 +479,23 @@ const styles = StyleSheet.create({
 
     },
 
-    archiveHeadWrap: {
-        marginTop: 38,
-        width: "88%",
+ archiveHeadWrap: {
+
+        width: "100%",
         position: "relative",
-        marginLeft: -43,
 
         },
 
     circle: {
 
-        borderRadius: "50%",
+        borderRadius: 50,
         position: "absolute",
         width: 100,
         height: 100,
         backgroundColor: "#FF2600",
         borderWidth: 2,
         borderColor: "#DC2103",
-        right: -55,
+        right: -10,
         top: -15,
         justifyContent: "center",
 
@@ -418,7 +507,8 @@ const styles = StyleSheet.create({
         fontFamily: "RedditSans-Bold",
         fontSize: 50,
         textAlign: "center",
-        lineHeight: 50,
+        lineHeight: 58,
+        height: 48,
 
         },
     circleScoreDesc: {
@@ -429,6 +519,68 @@ const styles = StyleSheet.create({
         textAlign: "center",
 
         },
+
+    archiveBoxArch: {
+
+        marginTop: 32,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 40,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+    },
+
+    archiveHeader: {
+
+        backgroundColor: '#195072',
+        width: "100%",
+        height: 65,
+        borderRadius: 10,
+        justifyContent: "center",
+        paddingRight: 75,
+
+    },
+
+    archiveTitle: {
+        color: 'white',
+        fontFamily: "RedditSans-SemiBold",
+        fontSize: 17,
+        textAlign: "center",
+
+    },
+
+    archiveLocation: {
+        color: 'white',
+        fontSize: 14,
+        textAlign: "center",
+        marginTop: 2,
+
+    },
+
+    vulnerabilityDesc: {
+
+        backgroundColor: '#BBBAB9',
+        width: "70%",
+        marginLeft: "20%",
+        borderWidth: 1,
+        borderColor: "#9B9B9B",
+        height: 20,
+        borderRadius: 3,
+        justifyContent: "center",
+        paddingRight: 40,
+
+    },
+    vulnerabilityText: {
+        color: '#676767',
+        fontFamily: "RedditSans-SemiBold",
+        textAlign: "center",
+        height: 22,
+
+
+    },
+
+
+
+
 
     videoBox: {
 
@@ -478,7 +630,7 @@ const styles = StyleSheet.create({
         fontFamily: 'RedditSans-Regular',
         fontSize: 25,
         marginTop: 25,
-        marginLeft: 20,
+        marginLeft: 10,
 
 
     },
@@ -522,6 +674,10 @@ const styles = StyleSheet.create({
         width: "100%",
         height: undefined,
         marginTop: 5,
+        paddingLeft: "5%",
+        paddingRight: "5%",
+        marginBottom: 200,
+        paddingBottom: 50,
 
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
@@ -529,51 +685,8 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
     },
 
-    archiveHeader: {
 
-        backgroundColor: '#195072',
-        width: "100%",
-        height: 65,
-        borderRadius: 10,
-        justifyContent: "center",
-        paddingRight: 40,
 
-    },
-
-    archiveTitle: {
-        color: 'white',
-        fontFamily: "RedditSans-SemiBold",
-        fontSize: 17,
-        textAlign: "center",
-
-    },
-
-    archiveLocation: {
-        color: 'white',
-        fontSize: 14,
-        textAlign: "center",
-        marginTop: 2,
-
-    },
-
-    vulnerabilityDesc: {
-
-        backgroundColor: '#BBBAB9',
-        width: "70%",
-        marginLeft: "30%",
-        borderWidth: 1,
-        borderColor: "#9B9B9B",
-        height: 20,
-        borderRadius: 3,
-        justifyContent: "center",
-        paddingRight: 20,
-
-    },
-    vulnerabilityText: {
-        color: '#676767',
-        fontFamily: "RedditSans-SemiBold",
-        textAlign: "center",
-    },
 
 
 
@@ -584,21 +697,30 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     mainLogo: {
-        width: '52%',
+        width: '100%',
         height: undefined,
         aspectRatio: 1,
         resizeMode:'contain',
-        position: "absolute",
-        alignSelf: "center"
+
+
 
     },
+
+    logoWrap: {
+        alignSelf: "center",
+        width: '50%',
+
+
+
+    },
+
     searchImage: {
         width: '7%',
         height: undefined,
         aspectRatio: 1,
         resizeMode:'contain',
         position: "absolute",
-        left: "20px",
+        left: 20,
     },
     burgerImage: {
         width: '7%',
@@ -606,7 +728,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         resizeMode:'contain',
         position: "absolute",
-        right: "20px",
+        right: 20,
         },
     timeImage: {
         height: 39,
